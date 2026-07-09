@@ -23,32 +23,40 @@ public class PlayerMove : MonoBehaviour
     public GameObject HotRot;
     public float gravity;
     private Animator animator;
+    public bool cameramodeFP=true;
+    public GameObject TPcamera;
+    public GameObject FPcamera;
+    public GameObject playerRender;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        FPcamera.SetActive(true);
+        TPcamera.SetActive(false);
+        playerRender.GetComponent<Renderer>().enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        Vector3 moveDirection = Vector3.zero;
         if (Input.GetKey(KeyCode.W))
         {
-            rb.AddForce(0,0,Movespeed);
+            moveDirection += transform.forward * Movespeed;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            rb.AddForce(0,0,Movespeed);
+            moveDirection += -transform.forward * Movespeed;
         }
         if (Input.GetKey(KeyCode.A))
         {
-            rb.AddForce(Movespeed,0,0);
+            moveDirection += -transform.right * Movespeed;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            rb.AddForce(-Movespeed,0,0);
+            moveDirection += transform.right * Movespeed;
         }
         if (Grounded == true && Input.GetKey(KeyCode.Space))
         {
@@ -63,21 +71,52 @@ public class PlayerMove : MonoBehaviour
         {
             animator.SetBool("isRunning", false);
         }
+        if (Input.GetKeyDown(KeyCode.F5))
+        {
+            CameramodeChange();
+        }
 
         RotationX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * MousemovepowerX;
 
         RotationY += Input.GetAxis("Mouse Y") * MousemovepowerY;
         RotationY = Mathf.Clamp(RotationY, MinimumY, MaximumY);
 
-        VerRot.transform.localEulerAngles = new Vector3(-RotationY, 0, 0);
-        HotRot.transform.localEulerAngles = new Vector3(0, RotationX, 0);
-
+        if (cameramodeFP == true)
+        {
+            FPcamera.transform.localEulerAngles=new Vector3(-RotationY,0,0);
+            HotRot.transform.localEulerAngles = new Vector3(0, RotationX, 0);
+            Vector3 normalizedDirection=moveDirection.normalized;
+            rb.velocity=new Vector3(normalizedDirection.x*Movespeed,rb.velocity.y,normalizedDirection.z*Movespeed);
+        }
+        else
+        {
+            VerRot.transform.localEulerAngles = new Vector3(-RotationY, 0, 0);
+            HotRot.transform.localEulerAngles = new Vector3(0, RotationX, 0);
+            Vector3 normalizedDirection=moveDirection.normalized;
+            rb.velocity=new Vector3(normalizedDirection.x*Movespeed,rb.velocity.y,normalizedDirection.z*Movespeed);
+        }
     }
     void FixedUpdate()
     {
         if (rb.velocity.y < 30)
         {
             rb.velocity += Vector3.up * Physics.gravity.y * gravity * Time.deltaTime;
+        }
+    }
+    void CameramodeChange()
+    {
+        cameramodeFP=!cameramodeFP;
+        if (cameramodeFP == true)
+        {
+            FPcamera.SetActive(true);
+            TPcamera.SetActive(false);
+            playerRender.GetComponent<Renderer>().enabled=false;
+        }
+        else
+        {
+            FPcamera.SetActive(false);
+            TPcamera.SetActive(true);
+            playerRender.GetComponent<Renderer>().enabled = true;
         }
     }
     void OnCollisionEnter(Collision collision)
