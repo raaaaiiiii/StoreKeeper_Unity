@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
@@ -34,6 +35,38 @@ public class PlayerMove : MonoBehaviour
         {
             transform.position+=transform.TransformDirection(Vector3.forward*Movespeed*Time.deltaTime);
         }
+        if (Input.GetKey(KeyCode.S))
+        {
+            transform.position+=transform.TransformDirection(Vector3.back*Movespeed*Time.deltaTime);
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            transform.position+=transform.TransformDirection(Vector3.left*Movespeed*Time.deltaTime);
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            transform.position+=transform.TransformDirection(Vector3.right*Movespeed*Time.deltaTime);
+        }
+        if (Grounded == true&&Input.GetKeyDown(KeyCode.Space))
+        {
+            Grounded=false;
+            rb.AddForce(Vector3.up*Jumppower);
+        }
+
+        RotationX=transform.localEulerAngles.y+Input.GetAxis("Mouse X")*MousemovepowerX;
+
+        RotationY+=Input.GetAxis("Mouse Y")*MousemovepowerY;
+        RotationY=Mathf.Clamp(RotationY,MinimumY,MaximumY);
+
+        VerRot.transform.localEulerAngles=new Vector3(-RotationY,0,0);
+        HotRot.transform.localEulerAngles=new Vector3(0,RotationX,0);
         
+    }
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
+            Grounded=true;
+        }
     }
 }
