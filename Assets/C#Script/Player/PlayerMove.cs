@@ -23,10 +23,11 @@ public class PlayerMove : MonoBehaviour
     public GameObject HotRot;
     public float gravity;
     private Animator animator;
-    public bool cameramodeFP=true;
+    public bool cameramodeFP = true;
     public GameObject TPcamera;
     public GameObject FPcamera;
     public GameObject playerRender;
+    public GameMenu gameMenu;
 
     // Start is called before the first frame update
     void Start()
@@ -81,19 +82,22 @@ public class PlayerMove : MonoBehaviour
         RotationY += Input.GetAxis("Mouse Y") * MousemovepowerY;
         RotationY = Mathf.Clamp(RotationY, MinimumY, MaximumY);
 
-        if (cameramodeFP == true)
+        if (!gameMenu.isGamemenunow)
         {
-            FPcamera.transform.localEulerAngles=new Vector3(-RotationY,0,0);
-            HotRot.transform.localEulerAngles = new Vector3(0, RotationX, 0);
-            Vector3 normalizedDirection=moveDirection.normalized;
-            rb.velocity=new Vector3(normalizedDirection.x*Movespeed,rb.velocity.y,normalizedDirection.z*Movespeed);
-        }
-        else
-        {
-            VerRot.transform.localEulerAngles = new Vector3(-RotationY, 0, 0);
-            HotRot.transform.localEulerAngles = new Vector3(0, RotationX, 0);
-            Vector3 normalizedDirection=moveDirection.normalized;
-            rb.velocity=new Vector3(normalizedDirection.x*Movespeed,rb.velocity.y,normalizedDirection.z*Movespeed);
+            if (cameramodeFP == true)
+            {
+                FPcamera.transform.localEulerAngles = new Vector3(-RotationY, 0, 0);
+                HotRot.transform.localEulerAngles = new Vector3(0, RotationX, 0);
+                Vector3 normalizedDirection = moveDirection.normalized;
+                rb.velocity = new Vector3(normalizedDirection.x * Movespeed, rb.velocity.y, normalizedDirection.z * Movespeed);
+            }
+            else
+            {
+                VerRot.transform.localEulerAngles = new Vector3(-RotationY, 0, 0);
+                HotRot.transform.localEulerAngles = new Vector3(0, RotationX, 0);
+                Vector3 normalizedDirection = moveDirection.normalized;
+                rb.velocity = new Vector3(normalizedDirection.x * Movespeed, rb.velocity.y, normalizedDirection.z * Movespeed);
+            }
         }
     }
     void FixedUpdate()
@@ -105,12 +109,12 @@ public class PlayerMove : MonoBehaviour
     }
     void CameramodeChange()
     {
-        cameramodeFP=!cameramodeFP;
+        cameramodeFP = !cameramodeFP;
         if (cameramodeFP == true)
         {
             FPcamera.SetActive(true);
             TPcamera.SetActive(false);
-            playerRender.GetComponent<Renderer>().enabled=false;
+            playerRender.GetComponent<Renderer>().enabled = false;
         }
         else
         {
