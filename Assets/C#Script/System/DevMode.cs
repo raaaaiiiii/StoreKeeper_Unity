@@ -9,16 +9,16 @@ public class DevMode : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        block =(GameObject)Resources.Load("unity block");
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.F5)&&Input.GetKey(KeyCode.B))
+        if (Input.GetKey(KeyCode.F3)&&Input.GetKeyDown(KeyCode.B))
         {
-            //Vector3 instanceposition=
-            //GameObject instance=(GameObject)Instantiate(block,player.transform.InverseTransformPoint()+=new Vector3(0f,2f,2f)))
+            Vector3 instanceposition= player.transform.localPosition+=new Vector3(2f,2f,0f);
+            GameObject instance=(GameObject)Instantiate(block,new Vector3(instanceposition.x,instanceposition.y,instanceposition.z),Quaternion.identity);
         }
     }
 }

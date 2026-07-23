@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 
@@ -62,6 +63,7 @@ public class PlayerMove : MonoBehaviour
         if (Grounded == true && Input.GetKey(KeyCode.Space))
         {
             Grounded = false;
+            Debug.Log("grounded=false,jump");
             rb.velocity = new Vector3(rb.velocity.y, Jumppower, rb.velocity.z);
         }
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
@@ -125,16 +127,40 @@ public class PlayerMove : MonoBehaviour
     }
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Ground")
+        ContactPoint contact = collision.contacts[0];
+        float hity = contact.point.y;
+        if (collision.gameObject.tag == ("block") && hity > transform.position.y)
         {
             Grounded = true;
+            Debug.Log("grounded=true,block");
         }
+        /*if (collision.gameObject.tag == "Ground")
+        {
+            Grounded = true;
+        }*/
+    }
+    void OnTriggerEnter(Collider other)
+    {
+        /*if (other.gameObject.tag == "Ground")
+        {
+            Grounded = true;
+            Debug.Log("grounded=true,terrain");
+        }*/
     }
     void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.tag == "Ground")
+        Debug.Log("collisionexit");
+        if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "block")
         {
             Grounded = false;
+            Debug.Log("grounded=false");
+        }
+    }
+    void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
+            Grounded=true;
         }
     }
 }

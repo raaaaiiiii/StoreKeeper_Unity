@@ -32,12 +32,12 @@ public class GameMenu : MonoBehaviour
         if (isGamemenunow)
         {
             Time.timeScale=0;
-            Debug.Log("timescale0");
+            //Debug.Log("timescale0");
         }
         else
         {
             Time.timeScale=1;
-            Debug.Log("timescale1");
+            //Debug.Log("timescale1");
         }
     }
 }
