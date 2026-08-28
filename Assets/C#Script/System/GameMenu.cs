@@ -8,9 +8,11 @@ public class GameMenu : MonoBehaviour
     public GameObject gamemenuCanvas;
     public CursorManager cursorManager;
     public bool isGamemenunow=false;
+    public float gamespeedscale;
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale=gamespeedscale;
         gamemenuCanvas.SetActive(false);
     }
 
@@ -27,7 +29,7 @@ public class GameMenu : MonoBehaviour
     public void GameMenuChange()
     {
         cursorManager.CursorManager_Gamemenu(isGamemenunow);
-        Debug.Log("cursormanager_change");
+        //Debug.Log("cursormanager_change");
         gamemenuCanvas.SetActive(isGamemenunow);
         if (isGamemenunow)
         {
@@ -36,7 +38,7 @@ public class GameMenu : MonoBehaviour
         }
         else
         {
-            Time.timeScale=1;
+            Time.timeScale=gamespeedscale;
             //Debug.Log("timescale1");
         }
     }

@@ -29,6 +29,9 @@ public class PlayerMove : MonoBehaviour
     public GameObject FPcamera;
     public GameObject playerRender;
     public GameMenu gameMenu;
+    public GameObject nowcamera;
+    public PlayerEnventory playerEnventory;
+    public Vector3 respownpoint;
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +40,7 @@ public class PlayerMove : MonoBehaviour
         animator = GetComponent<Animator>();
         FPcamera.SetActive(true);
         TPcamera.SetActive(false);
+        nowcamera = FPcamera;
         playerRender.GetComponent<Renderer>().enabled = false;
     }
 
@@ -60,10 +64,14 @@ public class PlayerMove : MonoBehaviour
         {
             moveDirection += transform.right * Movespeed;
         }
+        if (Input.GetKeyUp(KeyCode.R))
+        {
+            playerEnventory.Throwitem();
+        }
         if (Grounded == true && Input.GetKey(KeyCode.Space))
         {
             Grounded = false;
-            Debug.Log("grounded=false,jump");
+            //Debug.Log("grounded=false,jump");
             rb.velocity = new Vector3(rb.velocity.y, Jumppower, rb.velocity.z);
         }
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
@@ -101,6 +109,10 @@ public class PlayerMove : MonoBehaviour
                 rb.velocity = new Vector3(normalizedDirection.x * Movespeed, rb.velocity.y, normalizedDirection.z * Movespeed);
             }
         }
+        if (transform.position.y <= -15)
+        {
+            transform.position = respownpoint;
+        }
     }
     void FixedUpdate()
     {
@@ -117,12 +129,14 @@ public class PlayerMove : MonoBehaviour
             FPcamera.SetActive(true);
             TPcamera.SetActive(false);
             playerRender.GetComponent<Renderer>().enabled = false;
+            nowcamera = FPcamera;
         }
         else
         {
             FPcamera.SetActive(false);
             TPcamera.SetActive(true);
             playerRender.GetComponent<Renderer>().enabled = true;
+            nowcamera = TPcamera;
         }
     }
     void OnCollisionEnter(Collision collision)
@@ -132,7 +146,7 @@ public class PlayerMove : MonoBehaviour
         if (collision.gameObject.tag == ("block") && hity > transform.position.y)
         {
             Grounded = true;
-            Debug.Log("grounded=true,block");
+            //Debug.Log("grounded=true,block");
         }
         /*if (collision.gameObject.tag == "Ground")
         {
@@ -149,18 +163,18 @@ public class PlayerMove : MonoBehaviour
     }
     void OnCollisionExit(Collision collision)
     {
-        Debug.Log("collisionexit");
+        //Debug.Log("collisionexit");
         if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "block")
         {
             Grounded = false;
-            Debug.Log("grounded=false");
+            //Debug.Log("grounded=false");
         }
     }
     void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.tag == "Ground")
         {
-            Grounded=true;
+            Grounded = true;
         }
     }
 }

@@ -17,7 +17,7 @@ public class DevMode : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.F3)&&Input.GetKeyDown(KeyCode.B))
         {
-            Vector3 instanceposition= player.transform.localPosition+=new Vector3(2f,2f,0f);
+            Vector3 instanceposition= player.transform.localPosition+=new Vector3(4f,4f,0f);
             GameObject instance=(GameObject)Instantiate(block,new Vector3(instanceposition.x,instanceposition.y,instanceposition.z),Quaternion.identity);
         }
     }
