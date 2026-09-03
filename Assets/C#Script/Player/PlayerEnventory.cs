@@ -38,7 +38,9 @@ public class PlayerEnventory : MonoBehaviour
             Rigidbody rb;
             rb = item.GetComponent<Rigidbody>();
             item.transform.localScale = originalscale;
-            Vector3 force = transform.forward * throwpower + transform.up * throwpower;
+            rb.velocity = Vector3.zero;
+            item.transform.rotation=transform.rotation;
+            Vector3 force = transform.forward * throwpower + transform.up * throwpower/2;
             rb.AddForce(force, ForceMode.Impulse);
             //rb.velocity = item.transform.forward * throwpower;
             //rb.velocity = item.transform.up * throwpower;
