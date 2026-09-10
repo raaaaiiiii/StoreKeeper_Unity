@@ -19,16 +19,29 @@ public class Raycast : MonoBehaviour
         {
             if (hit.transform.tag != "Player"&&hit.transform.tag=="block"&&Input.GetMouseButtonUp(1)&&playerEnventory.item==null)
             {
-                playerEnventory.Getitem(hit.transform.gameObject);
-                hit.rigidbody.isKinematic=false;
+                ItemBlock itemBlock =hit.collider.GetComponent<ItemBlock>();
+                Blockholder blockholder=itemBlock.holdingobject.GetComponent<Blockholder>();
+                if (itemBlock.isholding)
+                {
+                    playerEnventory.Getitem(blockholder.holditem);
+                    blockholder.holditem=null;
+                    itemBlock.holdingobject=null;
+                    itemBlock.isholding=false;
+                }
+                else
+                {
+                    playerEnventory.Getitem(hit.transform.gameObject);
+                    itemBlock.holdingobject=null;
+                    itemBlock.isholding=false;
+                }
+                
             }
-            if (hit.transform.tag != "Player" &&hit.transform.tag==""&&Input.GetMouseButtonUp(0)&&playerEnventory.item!=null)
+            if (hit.transform.tag != "Player" &&hit.transform.tag=="blockholder"&&Input.GetMouseButtonUp(0)&&playerEnventory.item!=null)
             {
-                GameObject child =hit.transform.GetChild(1).gameObject;
-                playerEnventory.item.transform.position=child.transform.position;
-                playerEnventory.item.transform.rotation=child.transform.rotation;
-                Rigidbody rb=playerEnventory.item.GetComponent<Rigidbody>();
-                rb.isKinematic=true;
+                Blockholder blockholder =hit.collider.GetComponent<Blockholder>();
+                blockholder.holditem=playerEnventory.item;
+                ItemBlock itemBlock =playerEnventory.item.GetComponent<ItemBlock>();
+                itemBlock.holdingobject=hit.transform.gameObject;
                 playerEnventory.item=null;
             }
         }

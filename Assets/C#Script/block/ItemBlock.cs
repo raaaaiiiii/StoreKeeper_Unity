@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ItemBlock : MonoBehaviour
 {
+    public GameObject holdingobject;
+    public bool isholding;
     // Start is called before the first frame update
     void Start()
     {
