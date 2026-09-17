@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5543387084531891158}
   - component: {fileID: -7171058078652261914}
   - component: {fileID: -3003251751227576171}
+  - component: {fileID: -7015270491930078139}
   m_Layer: 0
   m_Name: unity block 1
   m_TagString: block
@@ -146,3 +147,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8352c3fb735b42444b8196902c9dc1d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holdingobject: {fileID: 0}
+  isholding: 0
+--- !u!114 &-7015270491930078139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693697054477693987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb3d0a44119a2e84e870ddfc92a30c88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  holdpoint: {fileID: 0}
+  holditem: {fileID: 0}

@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class ItemBlock : MonoBehaviour
 {
-    public GameObject holdingobject;
-    public bool isholding;
+    public GameObject holdingobject=null;
+    public bool isholding=false;
+    public Vector3 startscale;
     // Start is called before the first frame update
     void Start()
     {
-        
+        startscale=gameObject.transform.localScale;
     }
 
     // Update is called once per frame
@@ -19,5 +20,9 @@ public class ItemBlock : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+    }
+    void Playercarry()
+    {
+        
     }
 }

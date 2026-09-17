@@ -28,7 +28,8 @@ public class PlayerEnventory : MonoBehaviour
     public void Getitem(GameObject getitem)
     {
         item = getitem;
-        originalscale = getitem.transform.localScale;
+        ItemBlock itemBlock =item.transform.GetComponent<ItemBlock>();
+        originalscale = itemBlock.startscale;
         getitem.transform.localScale = originalscale / itemscale;
     }
     public void Throwitem()
@@ -44,7 +45,9 @@ public class PlayerEnventory : MonoBehaviour
             rb.AddForce(force, ForceMode.Impulse);
             //rb.velocity = item.transform.forward * throwpower;
             //rb.velocity = item.transform.up * throwpower;
+            item.layer=0;
             item = null;
+            
         }
     }
 }
