@@ -45,15 +45,19 @@ public class Raycast : MonoBehaviour
             else
                 if (hit.transform.tag == "blockholder" && Input.GetMouseButtonUp(0) && playerEnventory.item != null && hit.transform.tag != "block")//ブロックを置く
                 {
-                    //Debug.Log("itemhold");
                     Blockholder blockholder = hit.transform.GetComponent<Blockholder>();
-                    blockholder.holditem = playerEnventory.item;
-                    ItemBlock itemBlock = playerEnventory.item.GetComponent<ItemBlock>();
-                    itemBlock.holdingobject = hit.transform.gameObject;
-                    itemBlock.isholding=true;
-                    playerEnventory.item.layer = 0;
-                    playerEnventory.item = null;
+                    if (blockholder.holditem == null)
+                    {
 
+                        //Debug.Log("itemhold");
+
+                        blockholder.holditem = playerEnventory.item;
+                        ItemBlock itemBlock = playerEnventory.item.GetComponent<ItemBlock>();
+                        itemBlock.holdingobject = hit.transform.gameObject;
+                        itemBlock.isholding = true;
+                        playerEnventory.item.layer = 0;
+                        playerEnventory.item = null;
+                    }
                 }
         }
     }

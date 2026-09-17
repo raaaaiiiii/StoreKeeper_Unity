@@ -10,6 +10,7 @@ public class PlayerEnventory : MonoBehaviour
     public float itemscale;
     public Vector3 originalscale;
     public float throwpower;
+    public new GameObject camera;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,7 +41,8 @@ public class PlayerEnventory : MonoBehaviour
             rb = item.GetComponent<Rigidbody>();
             item.transform.localScale = originalscale;
             rb.velocity = Vector3.zero;
-            item.transform.rotation=transform.rotation;
+            item.transform.rotation=camera.transform.rotation;
+            item.transform.position=holdpoint.transform.position;
             Vector3 force = transform.forward * throwpower + transform.up * throwpower/2;
             rb.AddForce(force, ForceMode.Impulse);
             //rb.velocity = item.transform.forward * throwpower;
