@@ -238,38 +238,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 229411037}
   m_SourcePrefab: {fileID: 100100000, guid: 53c038ddf99133a4c916e9af77aed220, type: 3}
---- !u!1 &105520903 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1693697054477693987, guid: cd80eeb0179fc8540a7ebd3779654a0c, type: 3}
-  m_PrefabInstance: {fileID: 959203635}
-  m_PrefabAsset: {fileID: 0}
---- !u!54 &105520906
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 105520903}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &154710382
 GameObject:
   m_ObjectHideFlags: 0
@@ -597,7 +565,7 @@ MonoBehaviour:
   holdpoint: {fileID: 182864741}
   itemscale: 2
   originalscale: {x: 0, y: 0, z: 0}
-  throwpower: 10
+  throwpower: 20
   camera: {fileID: 524837287}
 --- !u!114 &229411037
 MonoBehaviour:
@@ -915,6 +883,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -3003251751227576171, guid: cd80eeb0179fc8540a7ebd3779654a0c, type: 3}
+      propertyPath: type
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1693697054477693987, guid: cd80eeb0179fc8540a7ebd3779654a0c, type: 3}
       propertyPath: m_Name
       value: unity block 1
@@ -962,10 +934,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1693697054477693987, guid: cd80eeb0179fc8540a7ebd3779654a0c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 105520906}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd80eeb0179fc8540a7ebd3779654a0c, type: 3}
 --- !u!1 &963194225
 GameObject:

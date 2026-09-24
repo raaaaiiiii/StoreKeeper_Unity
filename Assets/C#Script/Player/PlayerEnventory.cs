@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerEnventory : MonoBehaviour
@@ -40,13 +41,11 @@ public class PlayerEnventory : MonoBehaviour
             Rigidbody rb;
             rb = item.GetComponent<Rigidbody>();
             item.transform.localScale = originalscale;
-            rb.velocity = Vector3.zero;
             item.transform.rotation=camera.transform.rotation;
             item.transform.position=holdpoint.transform.position;
-            Vector3 force = transform.forward * throwpower + transform.up * throwpower/2;
-            rb.AddForce(force, ForceMode.Impulse);
-            //rb.velocity = item.transform.forward * throwpower;
-            //rb.velocity = item.transform.up * throwpower;
+            //Vector3 force = transform.forward * throwpower + transform.up * throwpower/2;
+            rb.AddForce(item.transform.forward*throwpower, ForceMode.Impulse);
+            rb.AddForce(item.transform.up*throwpower/2f,ForceMode.Impulse);
             item.layer=0;
             item = null;
             
