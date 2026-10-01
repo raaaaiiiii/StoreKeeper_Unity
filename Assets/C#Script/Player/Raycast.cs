@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Raycast : MonoBehaviour
@@ -7,6 +8,7 @@ public class Raycast : MonoBehaviour
     public PlayerMove playerMove;
     public float Raycastlength;
     public PlayerEnventory playerEnventory;
+    public bool iscoroutine=false;
     void Start()
     {
 
@@ -17,7 +19,7 @@ public class Raycast : MonoBehaviour
         Debug.DrawRay(playerMove.nowcamera.transform.position, playerMove.nowcamera.transform.forward * Raycastlength, Color.red);
         if (Physics.Raycast(playerMove.nowcamera.transform.position, playerMove.nowcamera.transform.forward, out RaycastHit hit, Raycastlength))
         {
-            if (hit.transform.tag != "Player" && hit.transform.tag == "block" && Input.GetMouseButtonUp(1) && playerEnventory.item == null)//ブロックをとる
+            if (hit.transform.tag == "block" && Input.GetMouseButtonUp(1) && playerEnventory.item == null)//ブロックをとる
             {
                 ItemBlock itemBlock = hit.collider.GetComponent<ItemBlock>();
 
@@ -43,14 +45,11 @@ public class Raycast : MonoBehaviour
 
             }
             else
-                if (hit.transform.tag == "blockholder" && Input.GetMouseButtonUp(0) && playerEnventory.item != null && hit.transform.tag != "block")//ブロックを置く
+                if (hit.transform.tag == "blockholder" && Input.GetMouseButtonUp(0) && playerEnventory.item != null)//ブロックを置く
                 {
                     Blockholder blockholder = hit.transform.GetComponent<Blockholder>();
                     if (blockholder.holditem == null)
                     {
-
-                        //Debug.Log("itemhold");
-
                         blockholder.holditem = playerEnventory.item;
                         ItemBlock itemBlock = playerEnventory.item.GetComponent<ItemBlock>();
                         itemBlock.holdingobject = hit.transform.gameObject;
@@ -59,6 +58,27 @@ public class Raycast : MonoBehaviour
                         playerEnventory.item = null;
                     }
                 }
+                else if (hit.transform.tag == "stocker" && Input.GetMouseButton(0)&&!iscoroutine)//ストッカーに入れる
+                {
+                    iscoroutine=true;
+                    Debug.Log("coroutine");
+                    StartCoroutine(itemsupply(hit.transform.gameObject));
+                }
         }
+    }
+    IEnumerator itemsupply(GameObject hit)
+    {
+        Stocker stocker=hit.transform.GetComponent<Stocker>();
+        ItemBlock itemBlock =playerEnventory.item.GetComponent<ItemBlock>();
+        //Debug.Log("coroutine");
+        Debug.Log(!Input.GetMouseButton(0));
+        for (;itemBlock.stockitem<=0||!Input.GetMouseButton(0);itemBlock.stockitem--)
+        {
+            Debug.Log("for");
+            yield return null;
+            stocker.stockitem++;
+        }
+        yield return null;
+        //iscoroutine=false;
     }
 }

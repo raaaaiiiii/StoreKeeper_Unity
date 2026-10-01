@@ -8,11 +8,11 @@ public class ItemBlock : MonoBehaviour
     public bool isholding=false;
     public Vector3 startscale;
     public ItemType type;
+    public int stockitem=0;
     // Start is called before the first frame update
     void Start()
     {
         startscale=gameObject.transform.localScale;
-        
     }
 
     // Update is called once per frame
