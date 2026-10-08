@@ -8,7 +8,7 @@ public class Raycast : MonoBehaviour
     public PlayerMove playerMove;
     public float Raycastlength;
     public PlayerEnventory playerEnventory;
-    public bool iscoroutine=false;
+    public bool iscoroutine = false;
     void Start()
     {
 
@@ -58,9 +58,9 @@ public class Raycast : MonoBehaviour
                         playerEnventory.item = null;
                     }
                 }
-                else if (hit.transform.tag == "stocker" && Input.GetMouseButton(0)&&!iscoroutine)//ストッカーに入れる
+                else if (hit.transform.tag == "stocker" && Input.GetMouseButton(0) && !iscoroutine)//ストッカーに入れる
                 {
-                    iscoroutine=true;
+                    iscoroutine = true;
                     Debug.Log("coroutine");
                     StartCoroutine(itemsupply(hit.transform.gameObject));
                 }
@@ -68,17 +68,18 @@ public class Raycast : MonoBehaviour
     }
     IEnumerator itemsupply(GameObject hit)
     {
-        Stocker stocker=hit.transform.GetComponent<Stocker>();
-        ItemBlock itemBlock =playerEnventory.item.GetComponent<ItemBlock>();
+        Stocker stocker = hit.transform.GetComponent<Stocker>();
+        ItemBlock itemBlock = playerEnventory.item.GetComponent<ItemBlock>();
         //Debug.Log("coroutine");
         Debug.Log(!Input.GetMouseButton(0));
-        for (;itemBlock.stockitem<=0||!Input.GetMouseButton(0);itemBlock.stockitem--)
+        Debug.Log(itemBlock.stockitem <= 0);
+        for (; itemBlock.stockitem >= 1 && Input.GetMouseButton(0); itemBlock.stockitem--)
         {
             Debug.Log("for");
             yield return null;
             stocker.stockitem++;
         }
         yield return null;
-        //iscoroutine=false;
+        iscoroutine = false;
     }
 }

@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class DevMode : MonoBehaviour
 {
     public GameObject player;
     public GameObject block;
     public GameObject devcanvas;
+    public TextMeshProUGUI leftclick;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +26,14 @@ public class DevMode : MonoBehaviour
         else if (Input.GetKeyUp(KeyCode.F3))
         {
             devcanvas.SetActive(!devcanvas.activeInHierarchy);
+        }
+        if (Input.GetMouseButton(0))
+        {
+            leftclick.text="leftclick true";
+        }
+        else
+        {
+            leftclick.text="leftclick false";
         }
     }
 }

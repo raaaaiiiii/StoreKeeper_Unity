@@ -1,40 +1,56 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ItemBlock : MonoBehaviour
 {
-    public GameObject holdingobject=null;
-    public bool isholding=false;
+    public GameObject holdingobject = null;
+    public bool isholding = false;
     public Vector3 startscale;
     public ItemType type;
-    public int stockitem=0;
+    public int stockitem = 0;
+    public TextMeshPro text;
     // Start is called before the first frame update
     void Start()
     {
-        startscale=gameObject.transform.localScale;
+        startscale = gameObject.transform.localScale;
     }
 
     // Update is called once per frame
     void Update()
     {
+        Renderer renderer = GetComponent<Renderer>();
         if (this.gameObject.transform.position.y <= -15)
         {
             Destroy(this.gameObject);
         }
         if (type == ItemType.food)
         {
-            Renderer renderer=GetComponent<Renderer>();
-            renderer.material.color=Color.blue;
+
+            renderer.material.color = Color.blue;
         }
         if (type == ItemType.nofood)
         {
-            Renderer renderer=GetComponent<Renderer>();
-            renderer.material.color=Color.red;
+            renderer.material.color = Color.red;
         }
+        if (type == ItemType.none)
+        {
+            renderer.material.color = Color.white;
+        }
+        if (stockitem == 0)
+        {
+            text.text = "空";
+            type = ItemType.none;
+        }
+        else
+        {
+            text.text = stockitem.ToString();
+        }
+
     }
     void Playercarry()
     {
-        
+
     }
 }

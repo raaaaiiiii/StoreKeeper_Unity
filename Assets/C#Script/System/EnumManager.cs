@@ -20,4 +20,5 @@ public enum ItemType
 {
     food,
     nofood,
+    none,
 }
