@@ -613,6 +613,7 @@ MonoBehaviour:
   - {fileID: 1949743566}
   key: 0
   usingtool: 0
+  numkeylist: 0100000002000000030000000400000005000000
 --- !u!1 &524837287
 GameObject:
   m_ObjectHideFlags: 0
