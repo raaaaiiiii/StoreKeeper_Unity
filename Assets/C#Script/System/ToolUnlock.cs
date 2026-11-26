@@ -19,9 +19,10 @@ public class ToolUnlock : MonoBehaviour
     }
     public void Unlocktool(int toolnum)
     {
+        Debug.Log(toolnum);
         useTools.numkeylist.Add(toolnum);
-        unlockedtools.Add(useTools.tools[toolnum]);
-        Tool tool = useTools.tools[toolnum].GetComponent<Tool>();
+        unlockedtools.Add(useTools.tools[toolnum-1]);
+        Tool tool = useTools.tools[toolnum-1].GetComponent<Tool>();
         tool.unlocked=true;
     }
 }

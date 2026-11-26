@@ -18,6 +18,6 @@ public class Gridmanager : MonoBehaviour
     }
     public Vector3 gridposition(Vector3 nowposition)
     {
-        return new Vector3(Mathf.FloorToInt(nowposition.x/gridsize),0,Mathf.FloorToInt(nowposition.z/gridsize));
+        return new Vector3(Mathf.FloorToInt(nowposition.x/gridsize)*gridsize,0,Mathf.FloorToInt(nowposition.z/gridsize)*gridsize);
     }
 }

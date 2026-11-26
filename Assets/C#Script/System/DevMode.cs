@@ -2,13 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class DevMode : MonoBehaviour
 {
     public GameObject player;
+    public bool devactive=false;
     public GameObject block;
     public GameObject devcanvas;
     public TextMeshProUGUI leftclick;
+    public GameObject unlockbotton;
+    public GameObject toolserect;
+    public ToolUnlock toolUnlock;
+    public TMP_InputField toolserectfield;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +31,10 @@ public class DevMode : MonoBehaviour
         }
         else if (Input.GetKeyUp(KeyCode.F3))
         {
-            devcanvas.SetActive(!devcanvas.activeInHierarchy);
+            devactive=!devactive;
+            devcanvas.SetActive(devactive);
+            unlockbotton.gameObject.SetActive(devactive);
+            toolserect.gameObject.SetActive(devactive);
         }
         if (Input.GetMouseButton(0))
         {
@@ -34,6 +43,17 @@ public class DevMode : MonoBehaviour
         else
         {
             leftclick.text="leftclick false";
+        }
+    }
+    public void devtoolget()
+    {
+        if (int.TryParse(toolserectfield.text,out int result))
+        {
+            toolUnlock.Unlocktool(result);
+        }
+        else
+        {
+            Debug.Log("そのツールはありません");
         }
     }
 }

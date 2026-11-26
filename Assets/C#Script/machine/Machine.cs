@@ -25,7 +25,6 @@ public class Machine : MonoBehaviour
         colliderlist.Add(this.gameObject.transform.GetComponent<Collider>());
         colliderlist.Add(input.transform.GetComponent<Collider>());
         colliderlist.Add(output.transform.GetComponent<Collider>());
-        Debug.Log(colliderlist.Count);
     }
 
     // Update is called once per frame

@@ -21,14 +21,16 @@ public class CursorManager : MonoBehaviour
     }
     public void CursorManager_Gamemenu(bool isgamemenu)
     {
-        Cursor.visible=!isgamemenu;
+        Cursor.visible=isgamemenu;
         if (isgamemenu)
         {
             Cursor.lockState=CursorLockMode.None;
+            Debug.Log(Cursor.lockState);
         }
         else
         {
             Cursor.lockState=CursorLockMode.Locked;
+            Debug.Log(Cursor.lockState);
         }
     }
 }

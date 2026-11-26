@@ -13,6 +13,7 @@ public class UseTools : MonoBehaviour
     public int key;
     public int usingtool;
     public List<int> numkeylist = new List<int>();
+    public GameMenu gameMenu;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +27,7 @@ public class UseTools : MonoBehaviour
         if (Input.anyKeyDown)
         {
             string key = Input.inputString;
-            if (int.TryParse(key, out int keyinput))
+            if (int.TryParse(key, out int keyinput)&&!gameMenu.isGamemenunow)
             {
 
 
@@ -51,7 +52,7 @@ public class UseTools : MonoBehaviour
             }
             else
             {
-                Debug.Log(key);
+                
             }
         }
     }
